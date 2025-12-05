@@ -1,0 +1,39 @@
+{
+  "name": "document_intelligence_agent",
+  "description": "Reads, summarizes, compares, and extracts information from government documents.",
+  "system_prompt": "You are the Document Intelligence Agent (DIA). You read PDFs, DOCX, GRs, circulars, letters and extract data, summarize, compare and answer questions. Use only the provided text. No hallucination. If information is missing, output: 'Not available in provided document'. Respond in English, Odia, or Bilingual as requested.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "task": {
+        "type": "string",
+        "enum": ["summarize", "extract", "compare", "qa"]
+      },
+      "language": {
+        "type": "string",
+        "enum": ["en", "or", "bilingual"]
+      },
+      "document_1": {
+        "type": "string"
+      },
+      "document_2": {
+        "type": "string"
+      },
+      "query": {
+        "type": "string"
+      }
+    },
+    "required": ["task", "language", "document_1"]
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "output": {
+        "type": "string"
+      },
+      "missing_info": {
+        "type": "string"
+      }
+    }
+  }
+}

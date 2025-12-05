@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Intelligence Agent - Government Document Analysis</title>
+    <meta name="description" content="Advanced AI-powered document analysis system for government documents. Summarize, extract, compare, and query documents in English and Odia.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-gradient"></div>
+    <div class="grid-overlay"></div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 4H18L24 10V28H8V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18 4V10H24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 16H20M12 20H20M12 24H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h1>Document Intelligence Agent</h1>
+                </div>
+                <div class="status-badge" id="statusBadge">
+                    <span class="status-dot"></span>
+                    <span>Checking...</span>
+                </div>
+            </div>
+            <p class="tagline">Advanced AI-powered analysis for government documents</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="card upload-section">
+                <h2 class="section-title">
+                    <span class="section-number">01</span>
+                    Upload Documents
+                </h2>
+                
+                <div class="upload-grid">
+                    <!-- Document 1 Upload -->
+                    <div class="upload-area" id="uploadArea1">
+                        <input type="file" id="fileInput1" accept=".pdf,.docx,.txt" hidden>
+                        <div class="upload-content">
+                            <div class="upload-icon">
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M24 16V32M16 24H32" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <rect x="8" y="8" width="32" height="32" rx="4" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <p class="upload-label">Drop document here or click to browse</p>
+                            <p class="upload-hint">PDF, DOCX, TXT • Max 16MB</p>
+                        </div>
+                        <div class="file-preview" id="filePreview1" style="display: none;">
+                            <div class="file-info">
+                                <div class="file-icon">📄</div>
+                                <div class="file-details">
+                                    <p class="file-name"></p>
+                                    <p class="file-size"></p>
+                                </div>
+                            </div>
+                            <button class="remove-btn" onclick="removeFile(1)">✕</button>
+                        </div>
+                    </div>
+
+                    <!-- Document 2 Upload (for comparison) -->
+                    <div class="upload-area secondary" id="uploadArea2" style="display: none;">
+                        <input type="file" id="fileInput2" accept=".pdf,.docx,.txt" hidden>
+                        <div class="upload-content">
+                            <div class="upload-icon">
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M24 16V32M16 24H32" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                    <rect x="8" y="8" width="32" height="32" rx="4" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <p class="upload-label">Second document for comparison</p>
+                            <p class="upload-hint">PDF, DOCX, TXT • Max 16MB</p>
+                        </div>
+                        <div class="file-preview" id="filePreview2" style="display: none;">
+                            <div class="file-info">
+                                <div class="file-icon">📄</div>
+                                <div class="file-details">
+                                    <p class="file-name"></p>
+                                    <p class="file-size"></p>
+                                </div>
+                            </div>
+                            <button class="remove-btn" onclick="removeFile(2)">✕</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Configuration Section -->
+            <section class="card config-section">
+                <h2 class="section-title">
+                    <span class="section-number">02</span>
+                    Configure Analysis
+                </h2>
+
+                <div class="config-grid">
+                    <!-- Task Selection -->
+                    <div class="form-group">
+                        <label class="form-label">Analysis Task</label>
+                        <div class="task-selector">
+                            <button class="task-btn active" data-task="summarize">
+                                <span class="task-icon">📋</span>
+                                <span class="task-label">Summarize</span>
+                            </button>
+                            <button class="task-btn" data-task="extract">
+                                <span class="task-icon">🔍</span>
+                                <span class="task-label">Extract</span>
+                            </button>
+                            <button class="task-btn" data-task="compare">
+                                <span class="task-icon">⚖️</span>
+                                <span class="task-label">Compare</span>
+                            </button>
+                            <button class="task-btn" data-task="qa">
+                                <span class="task-icon">💬</span>
+                                <span class="task-label">Q&A</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Language Selection -->
+                    <div class="form-group">
+                        <label class="form-label">Output Language</label>
+                        <div class="language-selector">
+                            <button class="lang-btn active" data-lang="en">English</button>
+                            <button class="lang-btn" data-lang="or">ଓଡ଼ିଆ (Odia)</button>
+                            <button class="lang-btn" data-lang="bilingual">Bilingual</button>
+                        </div>
+                    </div>
+
+                    <!-- Query Input -->
+                    <div class="form-group" id="queryGroup" style="display: none;">
+                        <label class="form-label" for="queryInput">Your Query</label>
+                        <textarea 
+                            id="queryInput" 
+                            class="query-input" 
+                            rows="3" 
+                            placeholder="Enter your question or extraction criteria..."
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Process Button -->
+                <button class="process-btn" id="processBtn">
+                    <span class="btn-text">Analyze Document</span>
+                    <span class="btn-loader" style="display: none;"></span>
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section class="card results-section" id="resultsSection" style="display: none;">
+                <h2 class="section-title">
+                    <span class="section-number">03</span>
+                    Analysis Results
+                </h2>
+
+                <div class="results-content" id="resultsContent">
+                    <!-- Results will be displayed here -->
+                </div>
+
+                <div class="results-actions">
+                    <button class="action-btn" onclick="copyResults()">
+                        <span>📋</span> Copy Results
+                    </button>
+                    <button class="action-btn" onclick="downloadResults()">
+                        <span>💾</span> Download
+                    </button>
+                    <button class="action-btn secondary" onclick="resetForm()">
+                        <span>🔄</span> New Analysis
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by Advanced AI • Supporting English & Odia Languages</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
