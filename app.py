@@ -15,15 +15,20 @@ app = Flask(__name__, static_folder='static')
 CORS(app)
 
 # Configuration
-UPLOAD_FOLDER = 'uploads'
+# Use /tmp for serverless environments (Vercel) which have read-only filesystems
+UPLOAD_FOLDER = '/tmp/uploads' if os.environ.get('VERCEL') else 'uploads'
 MAX_FILE_SIZE = 16 * 1024 * 1024  # 16MB
 ALLOWED_EXTENSIONS = {'pdf', 'docx', 'txt'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
 
-# Ensure upload directory exists
-Path(UPLOAD_FOLDER).mkdir(exist_ok=True)
+# Ensure upload directory exists (skip on read-only filesystems)
+try:
+    Path(UPLOAD_FOLDER).mkdir(parents=True, exist_ok=True)
+except (OSError, PermissionError):
+    # On serverless platforms like Vercel, filesystem may be read-only
+    pass
 
 # Initialize DIA
 agent = DocumentIntelligenceAgent()
