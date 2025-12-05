@@ -1,9 +1,0 @@
-__pycache__
-*.pyc
-.env
-.DS_Store
-uploads/*
-test_documents/*
-*.log
-.venv
-venv
